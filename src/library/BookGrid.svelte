@@ -2,6 +2,7 @@
   import BookCover from "../common/BookCover.svelte";
 
   export let books = [];
+  export let onBookSelect = () => {};
 
   const variationsCount = 3;
 </script>
@@ -23,7 +24,7 @@
 
 <ul>
   {#each books as book, i}
-    <li>
+    <li on:click={() => onBookSelect({ book })}>
       <BookCover {book} variation={i % variationsCount} />
     </li>
   {/each}
