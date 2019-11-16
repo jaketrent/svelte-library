@@ -75,6 +75,7 @@ button:focus {
   --typeLineHeightTight: 1em;
   --typeSizeSmall: 0.75rem;
   --typeSizeDefault: 16px;
+  --typeSizeMedium: 1rem;
   --typeSizeLarge: 1.5rem;
   --typeSizeXLarge: 3rem;
   --typeSizeXXLarge: 4rem;

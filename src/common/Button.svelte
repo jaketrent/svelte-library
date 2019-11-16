@@ -1,3 +1,7 @@
+<script>
+  export let onClick;
+</script>
+
 <style>
   button {
     background: var(--colorCta);
@@ -5,6 +9,7 @@
       (2 * (var(--spacingSmall) * 1.5) + var(--typeLineHeightTight)) / 2
     );
     color: var(--colorFgInverse);
+    cursor: pointer;
     font-size: var(--typeSizeSmall);
     font-weight: var(--typeWeightBold);
     line-height: var(--typeLineHeightTight);
@@ -15,6 +20,6 @@
   }
 </style>
 
-<button>
+<button on:click={onClick}>
   <slot />
 </button>

@@ -15,6 +15,8 @@
     width: 100%;
     text-transform: uppercase;
     text-shadow: 2px 2px 0 #fff;
+    background-size: cover;
+    background-repeat: norepeat;
   }
   article.noCover::after {
     position: absolute;
@@ -56,7 +58,7 @@
 <article
   class="book{variation}
   {book.cover ? 'hasCover' : 'noCover'}"
-  style={book.cover ? 'background: url(' + book.cover + ')' : ''}>
+  style={book.cover ? 'background-image: url(' + book.cover + ')' : ''}>
   <div class="content">
     <header>
       <h2>{book.title}</h2>
