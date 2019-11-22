@@ -5,7 +5,11 @@
 
 <style>
   article {
-    background: linear-gradient(to right, var(--bgLight) 10%, var(--bg) 20%);
+    background-image: linear-gradient(
+      to right,
+      var(--bgLight) 10%,
+      var(--bg) 20%
+    );
     border-radius: 4px;
     color: #000;
     font-size: var(--typeSizeLarge);
@@ -17,6 +21,7 @@
     text-shadow: 2px 2px 0 #fff;
     background-size: cover;
     background-repeat: norepeat;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
   }
   article.noCover::after {
     position: absolute;
