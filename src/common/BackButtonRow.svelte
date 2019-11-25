@@ -1,6 +1,7 @@
 <script>
   import Button from "../common/Button.svelte";
 
+  // TODO: try dispatching custom event to not have click handlers stored everywhere
   export let onClick;
 </script>
 
@@ -20,7 +21,7 @@
 </style>
 
 <nav>
-  <Button onClick={() => onClick('library')}>&lt; Back</Button>
+  <Button on:click={() => onClick('library')}>&lt; Back</Button>
   <div class="text">
     To the
     <span>Library</span>

@@ -57,6 +57,6 @@
   Go home, and share them with your family.
 </p>
 
-<Button>+ Add Book</Button>
+<Button on:click={_ => onStateChange('create')}>+ Add Book</Button>
 
 <BookGrid {books} onBookSelect={args => onStateChange('detail', args)} />

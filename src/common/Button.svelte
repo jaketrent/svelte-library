@@ -1,7 +1,3 @@
-<script>
-  export let onClick;
-</script>
-
 <style>
   button {
     background: var(--colorCta);
@@ -20,6 +16,6 @@
   }
 </style>
 
-<button on:click={onClick}>
+<button on:click>
   <slot />
 </button>
