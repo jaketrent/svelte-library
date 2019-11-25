@@ -1,10 +1,13 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
   import Button from "../common/Button.svelte";
   import BookGrid from "./BookGrid.svelte";
   import Title from "./Title.svelte";
 
   export let books;
-  export let onStateChange = () => {};
+
+  const dispatch = createEventDispatcher();
 </script>
 
 <style>
@@ -17,9 +20,13 @@
 
 <p class="greeting">
   This is a library for the people. Welcome. Read the books here. Be inspired.
-  Go home, and share them with your family.
+  Go homn, and share them with your family.
 </p>
 
-<Button on:click={_ => onStateChange('create')}>+ Add Book</Button>
+<Button on:click={_ => dispatch('page-change', { to: 'create' })}>
+  + Add Book
+</Button>
 
-<BookGrid {books} onBookSelect={args => onStateChange('detail', args)} />
+<BookGrid
+  {books}
+  onBookSelect={args => dispatch('page-change', { to: 'detail', args })} />

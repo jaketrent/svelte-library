@@ -7,8 +7,6 @@
   import Header from "../common/Header.svelte";
   import TextInput from "../common/TextInput.svelte";
 
-  export let onStateChange = () => {};
-
   const dispatch = createEventDispatcher();
 
   // TODO: handle edit
@@ -38,14 +36,14 @@
   }
 </style>
 
-<BackButtonRow onClick={onStateChange} />
+<BackButtonRow on:page-change />
 
 <Header element="h1" size="large">Create</Header>
 
 <form
   on:submit|preventDefault={_ => {
     dispatch('create', { book });
-    onStateChange('library');
+    dispatch('page-change', { page: 'library' });
   }}>
 
   <TextInput label="Title" bind:value={title} />

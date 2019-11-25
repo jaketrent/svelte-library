@@ -5,7 +5,6 @@
   import Header from "../common/Header.svelte";
 
   export let book;
-  export let onStateChange = () => {};
 </script>
 
 <style>
@@ -19,7 +18,7 @@
   }
 </style>
 
-<BackButtonRow onClick={onStateChange} />
+<BackButtonRow on:page-change />
 
 <Header element="h1" size="large">Discover</Header>
 

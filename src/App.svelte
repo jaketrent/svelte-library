@@ -9,6 +9,7 @@
   }
 
   // TODO: make a dynamic data request
+  // TODO: better abouts
   let books = [
     {
       id: 1,
@@ -47,21 +48,13 @@
     }
   ];
 
-  const defaultStateArgs = {
-    // TODO: convert on:stateChange convention
-    onStateChange: handleStateChange
-  };
-  const states = {
-    create: { ui: Create, args: { "on:create": handleBookCreate } },
-    detail: { ui: Detail },
-    library: { ui: Library, args: { books } }
-  };
-  let state = "create";
-  let stateArgs = {};
+  let page = "library";
+  let pageArgs = {};
 
-  function handleStateChange(newState, args = {}) {
-    state = newState;
-    stateArgs = args;
+  function handlePageChange(evt) {
+    const { to, args = {} } = evt.detail;
+    page = to;
+    pageArgs = args;
   }
 </script>
 
@@ -72,11 +65,14 @@
 </style>
 
 <main>
-  {#if state === 'create'}
-    <Create {...defaultStateArgs} {...stateArgs} on:create={handleBookCreate} />
-  {:else if state === 'detail'}
-    <Detail {...defaultStateArgs} {...stateArgs} />
+  {#if page === 'create'}
+    <Create
+      {...pageArgs}
+      on:create={handleBookCreate}
+      on:page-change={handlePageChange} />
+  {:else if page === 'detail'}
+    <Detail {...pageArgs} on:page-change={handlePageChange} />
   {:else}
-    <Library {...defaultStateArgs} {...stateArgs} {books} />
+    <Library {...pageArgs} {books} on:page-change={handlePageChange} />
   {/if}
 </main>
