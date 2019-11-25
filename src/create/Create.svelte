@@ -47,7 +47,7 @@
   <TextInput label="Title" bind:value={title} />
   <TextInput label="Author" bind:value={author} />
   <TextInput label="Cover URL" bind:value={cover} />
-  <TextInput label="About" bind:value={cover} multiline />
+  <TextInput label="About" bind:value={about} multiline />
 
   <div class="submit-row">
     <Header>Preview</Header>

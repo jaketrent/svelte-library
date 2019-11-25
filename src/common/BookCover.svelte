@@ -1,6 +1,11 @@
 <script>
   export let book;
+  // TODO: tie variation permanently to book
   export let variation = 0;
+
+  function isValidUrl(url) {
+    return url && /^https?:\/\/[^.]+\.(jpg|png|gif)$/.test(url);
+  }
 </script>
 
 <style>
@@ -62,12 +67,12 @@
 
 <article
   class="book{variation}
-  {book.cover ? 'hasCover' : 'noCover'}"
-  style={book.cover ? 'background-image: url(' + book.cover + ')' : ''}>
+  {isValidUrl(book.cover) ? 'hasCover' : 'noCover'}"
+  style={isValidUrl(book.cover) ? 'background-image: url(' + book.cover + ')' : ''}>
   <div class="content">
     <header>
-      <h2>{book.title}</h2>
+      <h2>{book.title || ''}</h2>
     </header>
-    <div class="author">{book.author}</div>
+    <div class="author">{book.author || ''}</div>
   </div>
 </article>
