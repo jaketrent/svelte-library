@@ -1,4 +1,6 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
   import BackButtonRow from "../common/BackButtonRow.svelte";
   import BookCover from "../common/BookCover.svelte";
   import Button from "../common/Button.svelte";
@@ -7,17 +9,15 @@
 
   export let onStateChange = () => {};
 
+  const dispatch = createEventDispatcher();
+
+  // TODO: handle edit
   let title;
   let author;
   let cover;
   let about;
 
   $: book = { title, author, cover, about };
-
-  function handleCreate() {
-    const book = { title, author, cover, about };
-    console.log(book);
-  }
 </script>
 
 <style>
@@ -42,7 +42,11 @@
 
 <Header element="h1" size="large">Create</Header>
 
-<form on:submit|preventDefault={handleCreate}>
+<form
+  on:submit|preventDefault={_ => {
+    dispatch('create', { book });
+    onStateChange('library');
+  }}>
 
   <TextInput label="Title" bind:value={title} />
   <TextInput label="Author" bind:value={author} />
