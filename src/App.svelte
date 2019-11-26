@@ -1,4 +1,6 @@
 <script>
+  import { onMount } from "svelte";
+
   import Create from "./create/Create.svelte";
   import Detail from "./detail/Detail.svelte";
   import Library from "./library/Library.svelte";
@@ -12,50 +14,13 @@
     books = [book, ...books];
   }
 
-  // TODO: make a dynamic data request
-  // TODO: better abouts
-  let books = [
-    {
-      id: 1,
-      title: "Little Women",
-      author: "Louisa May Alcott",
-      cover: "",
-      about: "This is an about",
-      variation: 0
-    },
-    {
-      id: 2,
-      title: "Fahrenheit 451",
-      author: "Ray Bradbury",
-      cover: "",
-      about: "This is an about",
-      variation: 1
-    },
-    {
-      id: 3,
-      title: "Grapes of Wrath",
-      author: "John Steinbeck",
-      cover: "",
-      about: "This is an about",
-      variation: 2
-    },
-    {
-      id: 4,
-      title: "To Kill a Mocking Bird",
-      author: "Harper Lee",
-      cover: "https://i.imgur.com/BPmn7bUm.jpg",
-      about: "This is an about",
-      variation: 0
-    },
-    {
-      id: 5,
-      title: "Moby Dick",
-      author: "Hermann Melville",
-      cover: "",
-      about: "This is an about",
-      variation: 1
-    }
-  ];
+  let books = [];
+
+  onMount(async _ => {
+    const res = await fetch("http://localhost:3000/books");
+    const json = await res.json();
+    books = json;
+  });
 
   let page = "library";
   let pageArgs = {};
