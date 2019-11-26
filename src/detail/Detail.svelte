@@ -1,4 +1,6 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
   import BackButtonRow from "../common/BackButtonRow.svelte";
   import { bookApiUrl } from "../common/config.js";
   import BookCover from "../common/BookCover.svelte";
@@ -7,22 +9,24 @@
 
   export let book;
 
+  const dispatch = createEventDispatcher();
+
   async function handleFavoriteClick() {
     const toggledBook = {
       ...book,
       favorite: !book.favorite
     };
     const res = await fetch(bookApiUrl + "/" + book.id, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ favorite: !book.favorite })
+      body: JSON.stringify(toggledBook)
     });
     if (res.ok) {
       book = toggledBook;
+      dispatch("book-update", { book: toggledBook });
     }
-    // TODO: dispatch up
   }
 </script>
 

@@ -37,7 +37,6 @@
     books = json;
 
     // TODO: rm
-
     page = "detail";
     pageArgs = { book: books[0] };
     console.log({ pageArgs });
@@ -50,6 +49,12 @@
     const { to, args = {} } = evt.detail;
     page = to;
     pageArgs = args;
+  }
+
+  function handleBookUpdate(evt) {
+    const book = evt.detail;
+    const i = books.findIndex(b => b.id === book.id);
+    books = [...books.slice(0, i), book, ...books.slice(i)];
   }
 </script>
 
@@ -66,7 +71,10 @@
       on:create={handleBookCreate}
       on:page-change={handlePageChange} />
   {:else if page === 'detail'}
-    <Detail {...pageArgs} on:page-change={handlePageChange} />
+    <Detail
+      {...pageArgs}
+      on:page-change={handlePageChange}
+      on:book-update={handleBookUpdate} />
   {:else}
     <Library {...pageArgs} {books} on:page-change={handlePageChange} />
   {/if}
