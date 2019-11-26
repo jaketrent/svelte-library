@@ -1,7 +1,5 @@
 <script>
   export let book;
-  // TODO: tie variation permanently to book
-  export let variation = 0;
 
   function isValidUrl(url) {
     return url && /^https?:\/\/[^.]+\.(jpg|png|gif)$/.test(url);
@@ -27,6 +25,10 @@
     background-size: cover;
     background-repeat: norepeat;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+
+    --bg: #f5c839;
+    --bgDark: #f3b131;
+    --bgLight: #ffde77;
   }
   article.noCover::after {
     position: absolute;
@@ -35,11 +37,6 @@
     content: " ";
     background: linear-gradient(to right, var(--bg) 50%, var(--bgDark));
     width: 10%;
-  }
-  article.book0 {
-    --bg: #f5c839;
-    --bgDark: #f3b131;
-    --bgLight: #ffde77;
   }
   article.book1 {
     --bg: #ea7025;
@@ -66,7 +63,7 @@
 </style>
 
 <article
-  class="book{variation}
+  class="book{book.variation}
   {isValidUrl(book.cover) ? 'hasCover' : 'noCover'}"
   style={isValidUrl(book.cover) ? 'background-image: url(' + book.cover + ')' : ''}>
   <div class="content">

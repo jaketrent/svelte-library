@@ -3,8 +3,6 @@
 
   export let books = [];
   export let onBookSelect = () => {};
-
-  const variationsCount = 3;
 </script>
 
 <style>
@@ -23,9 +21,9 @@
 </style>
 
 <ul>
-  {#each books as book, i}
-    <li on:click={() => onBookSelect({ book })}>
-      <BookCover {book} variation={i % variationsCount} />
+  {#each books as book}
+    <li on:click={() => onBookSelect({ book })} key={book.id}>
+      <BookCover {book} />
     </li>
   {/each}
 </ul>

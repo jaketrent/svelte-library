@@ -1,6 +1,5 @@
 <script>
   export let label;
-  // TODO: don't dom forward
   export let value;
   export let multiline = false;
 </script>
