@@ -5,19 +5,32 @@
   import Detail from "./detail/Detail.svelte";
   import Library from "./library/Library.svelte";
 
-  function handleBookCreate(evt) {
+  const booksApiUrl = "http://localhost:3000/books?_sort=id&_order=desc";
+
+  async function handleBookCreate(evt) {
     const variationsCount = 3;
     const book = {
       ...evt.detail.book,
+      id: books.length + 1,
       variation: books.length % variationsCount
     };
-    books = [book, ...books];
+
+    const res = await fetch(booksApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(book)
+    });
+    if (res.ok) {
+      books = [book, ...books];
+    }
   }
 
   let books = [];
 
   onMount(async _ => {
-    const res = await fetch("http://localhost:3000/books");
+    const res = await fetch(booksApiUrl);
     const json = await res.json();
     books = json;
   });
