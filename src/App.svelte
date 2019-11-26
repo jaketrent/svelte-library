@@ -35,11 +35,6 @@
     const res = await fetch(booksApiUrl);
     const json = await res.json();
     books = json;
-
-    // TODO: rm
-    page = "detail";
-    pageArgs = { book: books[0] };
-    console.log({ pageArgs });
   });
 
   let page = "library";
@@ -52,9 +47,9 @@
   }
 
   function handleBookUpdate(evt) {
-    const book = evt.detail;
+    const { book } = evt.detail;
     const i = books.findIndex(b => b.id === book.id);
-    books = [...books.slice(0, i), book, ...books.slice(i)];
+    books = [...books.slice(0, i), book, ...books.slice(i + 1)];
   }
 </script>
 
