@@ -5,7 +5,7 @@
   import BookCover from "../common/BookCover.svelte";
   import Button from "../common/Button.svelte";
   import Header from "../common/Header.svelte";
-  import TextInput from "../common/TextInput.svelte";
+  import TextInput from "./TextInput.svelte";
 
   const dispatch = createEventDispatcher();
 
