@@ -1,6 +1,7 @@
 <style>
   button {
     background: var(--colorCta);
+    border: none;
     border-radius: calc(
       (2 * (var(--spacingSmall) * 1.5) + var(--typeLineHeightTight)) / 2
     );

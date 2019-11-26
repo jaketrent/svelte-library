@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
 
+  import { bookApiUrl } from "./common/config.js";
   import Create from "./create/Create.svelte";
   import Detail from "./detail/Detail.svelte";
   import Library from "./library/Library.svelte";
@@ -12,10 +13,11 @@
     const book = {
       ...evt.detail.book,
       id: books.length + 1,
-      variation: books.length % variationsCount
+      variation: books.length % variationsCount,
+      favorite: false
     };
 
-    const res = await fetch(booksApiUrl, {
+    const res = await fetch(booksApiUrl + "?_sort=id&_order=desc", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -33,6 +35,12 @@
     const res = await fetch(booksApiUrl);
     const json = await res.json();
     books = json;
+
+    // TODO: rm
+
+    page = "detail";
+    pageArgs = { book: books[0] };
+    console.log({ pageArgs });
   });
 
   let page = "library";
