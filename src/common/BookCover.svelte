@@ -14,34 +14,9 @@
     --bgDark: #f3b131;
     --bgLight: #ffde77;
 
-    background-image: linear-gradient(
-      to right,
-      var(--bgLight) 10%,
-      var(--bg) 20%
-    );
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 4px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    color: #000;
-    font-size: var(--typeSizeLarge);
-    overflow: hidden;
-    position: relative;
     width: 100%;
-    text-align: left;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 0 #fff;
-    transition: all 150ms;
-  }
-
-  .book--no-cover::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    content: " ";
-    background: linear-gradient(to right, var(--bg) 50%, var(--bgDark));
-    width: 10%;
+    transition: all 550ms;
   }
 
   .book--variation-1 {
@@ -61,29 +36,59 @@
   }
   .book--interactive:hover,
   .book--interactive:focus {
-    filter: brightness(85%);
+    filter: brightness(90%);
   }
 
-  .content,
+  .cover,
   .title,
   .author {
     display: block;
   }
-  .content {
-    position: absolute;
-    top: 3rem;
+  .cover {
+    background-image: linear-gradient(
+      to right,
+      var(--bgLight) 10%,
+      var(--bg) 20%
+    );
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    color: #000;
+    font-size: var(--typeSizeLarge);
+    height: 100%;
     left: 0;
-    padding-left: calc(10% + var(--spacingSmall));
+    overflow: hidden;
+    position: absolute;
+    text-align: left;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 #fff;
+    top: 0;
+    transition: all 300ms;
+    width: 100%;
   }
-
+  .book--no-cover .cover::before {
+    background: linear-gradient(to right, var(--bg) 50%, var(--bgDark));
+    content: " ";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 10%;
+  }
+  .book--interactive:hover .cover,
+  .book--interactive:focus .cover {
+    box-shadow: 0.375rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+    transform: translate(0.125rem, -0.25rem) skew(0, -5deg) scaleX(1.05);
+  }
   .title {
     font-size: var(--typeSizeXLarge);
     font-weight: var(--typeWeightBold);
     line-height: var(--typeLineHeightTight);
-    margin-bottom: var(--spacingMedium);
+    margin: 3rem 0 var(--spacingMedium) calc(10% + var(--spacingSmall));
   }
   .author {
     letter-spacing: 0.25em;
+    margin-left: calc(10% + var(--spacingSmall));
   }
 </style>
 
@@ -92,17 +97,18 @@
     on:click
     class="book book--variation-{book.variation} book--interactive {isValidUrl(book.cover) ? 'book--cover' : 'book--no-cover'}"
     style={isValidUrl(book.cover) ? 'background-image: url(' + book.cover + ')' : ''}>
-    <span class="content">
+    <span class="cover">
       <span class="title">{book.title || ''}</span>
       <span class="author">{book.author || ''}</span>
     </span>
+    <span class="page" />
   </button>
 {:else}
   <article
     class="book book--variation-{book.variation}
     {isValidUrl(book.cover) ? 'book--cover' : 'book--no-cover'}"
     style={isValidUrl(book.cover) ? 'background-image: url(' + book.cover + ')' : ''}>
-    <div class="content">
+    <div class="cover">
       <header>
         <h2 class="title">{book.title || ''}</h2>
       </header>
