@@ -77,7 +77,7 @@
   .book--interactive:hover .cover,
   .book--interactive:focus .cover {
     box-shadow: 0.375rem 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
-    transform: translate(0.125rem, -0.25rem) skew(0, -5deg) scaleX(1.05);
+    transform: translate(0.0625rem, -0.3125rem) skew(0, -5deg) scaleX(1.02);
   }
   .title {
     font-size: var(--typeSizeXLarge);
