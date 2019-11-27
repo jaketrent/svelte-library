@@ -15,10 +15,11 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     text-transform: uppercase;
+    transition: filter 150ms;
   }
   button:focus,
   button:hover {
-    filter: brightness(125%);
+    filter: brightness(115%);
   }
 </style>
 

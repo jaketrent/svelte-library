@@ -20,7 +20,7 @@
 
 <p class="greeting">
   This is a library for the people. Welcome. Read the books here. Be inspired.
-  Go homn, and share them with your family.
+  Go home, and share them with your family.
 </p>
 
 <Button on:click={_ => dispatch('page-change', { to: 'create' })}>

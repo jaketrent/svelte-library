@@ -30,8 +30,8 @@
 
 <ul>
   {#each books as book}
-    <li on:click={() => onBookSelect({ book })} key={book.id}>
-      <BookCover {book} />
+    <li>
+      <BookCover interactive {book} on:click={() => onBookSelect({ book })} />
       {#if book.favorite}
         <div class="heart">
           <Heart />
