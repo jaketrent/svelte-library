@@ -67,5 +67,4 @@
     <Header>About</Header>
     <p>{book.about}</p>
   </div>
-
 </div>

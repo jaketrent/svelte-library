@@ -14,8 +14,9 @@
     --bgLight: #ffde77;
 
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    width: 100%;
+    position: relative;
     transition: all 550ms;
+    width: 100%;
   }
 
   .book--variation-1 {
