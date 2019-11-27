@@ -1,9 +1,5 @@
 <script>
-  import { createEventDispatcher } from "svelte";
-
   import Button from "../common/Button.svelte";
-
-  const dispatch = createEventDispatcher();
 </script>
 
 <style>
@@ -22,9 +18,8 @@
 </style>
 
 <nav>
-  <Button on:click={() => dispatch('page-change', { to: 'library' })}>
-    &lt; Back
-  </Button>
+  <Button to="/">&lt; Back</Button>
+
   <div class="text">
     To the
     <span>Library</span>

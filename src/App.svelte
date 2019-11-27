@@ -1,4 +1,5 @@
 <script>
+  import { Link, Route, Router } from "svelte-routing";
   import { onMount } from "svelte";
 
   import { bookApiUrl } from "./common/config.js";
@@ -6,7 +7,7 @@
   import Detail from "./detail/Detail.svelte";
   import Library from "./library/Library.svelte";
 
-  const booksApiUrl = "http://localhost:3000/books?_sort=id&_order=desc";
+  export let url = "";
 
   async function handleBookCreate(evt) {
     const variationsCount = 3;
@@ -17,7 +18,7 @@
       favorite: false
     };
 
-    const res = await fetch(booksApiUrl + "?_sort=id&_order=desc", {
+    const res = await fetch(bookApiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -31,20 +32,11 @@
 
   let books = [];
 
-  onMount(async _ => {
-    const res = await fetch(booksApiUrl);
+  onMount(async function fetchBooks() {
+    const res = await fetch(bookApiUrl + "?_sort=id&_order=desc");
     const json = await res.json();
     books = json;
   });
-
-  let page = "library";
-  let pageArgs = {};
-
-  function handlePageChange(evt) {
-    const { to, args = {} } = evt.detail;
-    page = to;
-    pageArgs = args;
-  }
 
   function handleBookUpdate(evt) {
     const { book } = evt.detail;
@@ -59,18 +51,16 @@
   }
 </style>
 
-<main>
-  {#if page === 'create'}
-    <Create
-      {...pageArgs}
-      on:create={handleBookCreate}
-      on:page-change={handlePageChange} />
-  {:else if page === 'detail'}
-    <Detail
-      {...pageArgs}
-      on:page-change={handlePageChange}
-      on:book-update={handleBookUpdate} />
-  {:else}
-    <Library {...pageArgs} {books} on:page-change={handlePageChange} />
-  {/if}
-</main>
+<Router {url}>
+  <main>
+    <Route path="/books/:id" let:params>
+      <Detail id={params.id} on:book-update={handleBookUpdate} />
+    </Route>
+    <Route path="/create">
+      <Create on:create={handleBookCreate} />
+    </Route>
+    <Route path="/">
+      <Library {books} />
+    </Route>
+  </main>
+</Router>

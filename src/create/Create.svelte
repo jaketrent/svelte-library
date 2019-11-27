@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import { navigate } from "svelte-routing";
 
   import BackButtonRow from "../common/BackButtonRow.svelte";
   import BookCover from "../common/BookCover.svelte";
@@ -49,7 +50,7 @@
 <form
   on:submit|preventDefault={_ => {
     dispatch('create', { book });
-    dispatch('page-change', { page: 'library' });
+    navigate('/');
   }}>
 
   <div class="fields">

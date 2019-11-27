@@ -1,4 +1,6 @@
 <script>
+  import { links } from "svelte-routing";
+
   export let book;
   export let interactive = false;
 
@@ -93,8 +95,9 @@
 </style>
 
 {#if interactive}
-  <button
-    on:click
+  <a
+    use:links
+    href={'/books/' + book.id}
     class="book book--variation-{book.variation} book--interactive {isValidUrl(book.cover) ? 'book--cover' : 'book--no-cover'}">
     <span
       class="cover"
@@ -103,7 +106,7 @@
       <span class="author">{book.author || ''}</span>
     </span>
     <span class="page" />
-  </button>
+  </a>
 {:else}
   <article
     class="book book--variation-{book.variation}

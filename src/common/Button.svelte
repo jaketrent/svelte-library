@@ -1,6 +1,11 @@
+<script>
+  import { links } from "svelte-routing";
+
+  export let to = null;
+</script>
+
 <style>
-  /* TODO: hover/focus styles */
-  button {
+  .button {
     background: var(--colorCta);
     border: none;
     border-radius: calc(
@@ -8,21 +13,30 @@
     );
     color: var(--colorFgInverse);
     cursor: pointer;
+    display: inline-block;
     font-size: var(--typeSizeSmall);
     font-weight: var(--typeWeightBold);
     line-height: var(--typeLineHeightTight);
+    margin: 0;
     padding: calc(var(--spacingSmall) * 1.5) var(--spacingLarge);
-    white-space: nowrap;
     text-overflow: ellipsis;
     text-transform: uppercase;
     transition: filter 150ms;
+    white-space: nowrap;
   }
-  button:focus,
-  button:hover {
+  .button:hover,
+  .button:focus {
+    text-decoration: none;
     filter: brightness(115%);
   }
 </style>
 
-<button on:click>
-  <slot />
-</button>
+{#if to}
+  <a href={to} on:click use:links class="button">
+    <slot />
+  </a>
+{:else}
+  <button on:click class="button">
+    <slot />
+  </button>
+{/if}

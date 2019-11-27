@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
 
   import BackButtonRow from "../common/BackButtonRow.svelte";
   import { bookApiUrl } from "../common/config.js";
@@ -7,9 +7,16 @@
   import Button from "../common/Button.svelte";
   import Header from "../common/Header.svelte";
 
-  export let book;
+  export let book = {};
+  export let id;
 
   const dispatch = createEventDispatcher();
+
+  onMount(async _ => {
+    const res = await fetch(bookApiUrl + "/" + id);
+    const json = await res.json();
+    book = json;
+  });
 
   async function handleFavoriteClick() {
     const toggledBook = {
