@@ -16,6 +16,10 @@
     text-overflow: ellipsis;
     text-transform: uppercase;
   }
+  button:focus,
+  button:hover {
+    filter: brightness(125%);
+  }
 </style>
 
 <button on:click>
