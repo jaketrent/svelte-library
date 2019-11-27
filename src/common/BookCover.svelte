@@ -1,10 +1,9 @@
 <script>
-  // TODO: fix cover image appearance
   export let book;
   export let interactive = false;
 
   function isValidUrl(url) {
-    return url && /^https?:\/\/[^.]+\.(jpg|png|gif)$/.test(url);
+    return url && /http.+\.(jpg|png|gif)$/.test(url);
   }
 </script>
 
@@ -95,9 +94,10 @@
 {#if interactive}
   <button
     on:click
-    class="book book--variation-{book.variation} book--interactive {isValidUrl(book.cover) ? 'book--cover' : 'book--no-cover'}"
-    style={isValidUrl(book.cover) ? 'background-image: url(' + book.cover + ')' : ''}>
-    <span class="cover">
+    class="book book--variation-{book.variation} book--interactive {isValidUrl(book.cover) ? 'book--cover' : 'book--no-cover'}">
+    <span
+      class="cover"
+      style={isValidUrl(book.cover) ? 'background-image: url(' + book.cover + ')' : ''}>
       <span class="title">{book.title || ''}</span>
       <span class="author">{book.author || ''}</span>
     </span>
@@ -106,9 +106,10 @@
 {:else}
   <article
     class="book book--variation-{book.variation}
-    {isValidUrl(book.cover) ? 'book--cover' : 'book--no-cover'}"
-    style={isValidUrl(book.cover) ? 'background-image: url(' + book.cover + ')' : ''}>
-    <div class="cover">
+    {isValidUrl(book.cover) ? 'book--cover' : 'book--no-cover'}">
+    <div
+      class="cover"
+      style={isValidUrl(book.cover) ? 'background-image: url(' + book.cover + ')' : ''}>
       <header>
         <h2 class="title">{book.title || ''}</h2>
       </header>
