@@ -9,8 +9,9 @@
 <style>
   ul {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: minmax(12.5rem, 16rem);
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+    grid-auto-rows: 12.8rem;
     gap: var(--spacingMedium);
     list-style: none;
     max-width: 100%;

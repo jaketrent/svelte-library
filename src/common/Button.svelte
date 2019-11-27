@@ -1,4 +1,5 @@
 <style>
+  /* TODO: hover/focus styles */
   button {
     background: var(--colorCta);
     border: none;
@@ -12,7 +13,7 @@
     line-height: var(--typeLineHeightTight);
     padding: calc(var(--spacingSmall) * 1.5) var(--spacingLarge);
     white-space: nowrap;
-    text-overflow: ellipse;
+    text-overflow: ellipsis;
     text-transform: uppercase;
   }
 </style>

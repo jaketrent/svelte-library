@@ -22,17 +22,18 @@
   form {
     display: grid;
     grid-auto-rows: auto;
+    grid-template-columns: repeat(auto-fill, minmax(40vw, 20rem));
+    gap: var(--spacingXLarge);
+  }
+  .fields {
+    display: grid;
+    grid-auto-rows: auto;
     gap: var(--spacingMedium);
   }
-  .submit-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-  .book-container {
+  .preview {
     display: grid;
-    grid-template-rows: minmax(20vh, 20rem);
-    grid-template-columns: minmax(50vw, 20rem);
+    grid-template-columns: minmax(20vw, 10rem);
+    grid-template-rows: minmax(32vw, 16rem);
   }
 </style>
 
@@ -46,18 +47,22 @@
     dispatch('page-change', { page: 'library' });
   }}>
 
-  <TextInput label="Title" bind:value={title} />
-  <TextInput label="Author" bind:value={author} />
-  <TextInput label="Cover URL" bind:value={cover} />
-  <TextInput label="About" bind:value={about} multiline />
+  <div class="fields">
+    <TextInput label="Title" bind:value={title} />
+    <TextInput label="Author" bind:value={author} />
+    <TextInput label="Cover URL" bind:value={cover} />
+    <TextInput label="About" bind:value={about} multiline />
+    <div>
+      <Button>Save</Button>
+    </div>
 
-  <div class="submit-row">
-    <Header>Preview</Header>
-    <Button>Save</Button>
   </div>
 
-  <div class="book-container">
-    <BookCover {book} />
+  <div>
+    <Header>Preview</Header>
+    <div class="preview">
+      <BookCover {book} />
+    </div>
   </div>
 
 </form>

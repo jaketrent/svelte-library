@@ -107,3 +107,9 @@ button,
 textarea {
   margin-bottom: 0;
 }
+
+@media (min-width: 70rem) {
+  :root {
+    --typeSizeDefault: 24px;
+  }
+}

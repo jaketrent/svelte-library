@@ -33,7 +33,9 @@
 <style>
   .detail {
     display: grid;
-    grid-template-rows: minmax(22rem, 60vh) auto;
+    grid-template-columns: repeat(auto-fill, minmax(40vw, 20rem));
+    grid-template-rows: minmax(64vw, 32rem) auto;
+    gap: var(--spacingXLarge);
   }
   .cover {
     position: relative;

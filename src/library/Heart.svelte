@@ -10,6 +10,7 @@
     font-weight: var(--typeWeightBold);
     height: 2.5rem;
     justify-content: center;
+    transform: rotate(-90deg);
     width: 2.5rem;
   }
 </style>
