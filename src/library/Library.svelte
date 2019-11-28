@@ -1,20 +1,18 @@
 <script>
-  import { createEventDispatcher, onMount } from "svelte";
+  import { onMount } from "svelte";
 
+  import { allBooks, hasBooks, setBooks } from "../common/store.js";
   import Button from "../common/Button.svelte";
   import BookGrid from "./BookGrid.svelte";
   import { httpGet } from "../common/api.js";
   import Title from "./Title.svelte";
 
-  export let books = [];
-
-  const dispatch = createEventDispatcher();
+  export let books = allBooks();
 
   onMount(async function fetchBooks() {
-    if (books.length === 0) {
+    if (!hasBooks()) {
       const { data } = await httpGet("/?_sort=id&_order=desc");
-      books = data;
-      dispatch("books-fetch", { books });
+      books = setBooks(data);
     }
   });
 </script>

@@ -1,7 +1,7 @@
 <script>
-  import { createEventDispatcher } from "svelte";
   import { navigate } from "svelte-routing";
 
+  import { addBook } from "../common/store.js";
   import BackButtonRow from "../common/BackButtonRow.svelte";
   import { bookApiUrl } from "../common/config.js";
   import BookCover from "../common/BookCover.svelte";
@@ -9,8 +9,6 @@
   import Header from "../common/Header.svelte";
   import { httpPost } from "../common/api.js";
   import TextInput from "./TextInput.svelte";
-
-  const dispatch = createEventDispatcher();
 
   let title;
   let author;
@@ -32,7 +30,7 @@
     };
     const { ok, data } = await httpPost("/", newBook);
     if (ok) {
-      dispatch("create", { book: data });
+      addBook(data);
       navigate("/");
     }
   }

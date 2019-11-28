@@ -1,20 +1,21 @@
 <script>
-  import { createEventDispatcher, onMount } from "svelte";
+  import { onMount } from "svelte";
 
   import BackButtonRow from "../common/BackButtonRow.svelte";
   import BookCover from "../common/BookCover.svelte";
   import Button from "../common/Button.svelte";
+  import { findBook, hasBooks, setBooks, updateBook } from "../common/store.js";
   import Header from "../common/Header.svelte";
   import { httpGet, httpPut } from "../common/api.js";
 
-  const defaultBook = {};
-  export let book = defaultBook;
+  export let book = {};
   export let id;
 
-  const dispatch = createEventDispatcher();
-
   onMount(async _ => {
-    if (book === defaultBook) {
+    const foundBook = findBook(id);
+    if (foundBook) {
+      book = foundBook;
+    } else {
       const { data } = await httpGet("/" + id);
       book = data;
     }
@@ -28,7 +29,7 @@
     const { ok } = await httpPut("/" + book.id, toggledBook);
     if (ok) {
       book = toggledBook;
-      dispatch("book-update", { book: toggledBook });
+      if (hasBooks()) updateBook(book);
     }
   }
 </script>
