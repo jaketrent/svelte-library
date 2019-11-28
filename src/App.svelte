@@ -26,6 +26,10 @@
     const i = books.findIndex(b => b.id === book.id);
     books = [...books.slice(0, i), book, ...books.slice(i + 1)];
   }
+
+  function findBook(id) {
+    return books.find(b => b.id === parseInt(id, 10));
+  }
 </script>
 
 <style>
@@ -37,7 +41,10 @@
 <Router {url}>
   <main>
     <Route path="/books/:id" let:params>
-      <Detail id={params.id} on:book-update={handleBookUpdate} />
+      <Detail
+        id={params.id}
+        on:book-update={handleBookUpdate}
+        book={findBook(params.id)} />
     </Route>
     <Route path="/create">
       <Create on:create={handleBookCreate} />

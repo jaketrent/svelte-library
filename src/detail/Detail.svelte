@@ -7,15 +7,17 @@
   import Header from "../common/Header.svelte";
   import { httpGet, httpPut } from "../common/api.js";
 
-  export let book = {};
+  const defaultBook = {};
+  export let book = defaultBook;
   export let id;
 
   const dispatch = createEventDispatcher();
 
   onMount(async _ => {
-    // TODO: get only if needed
-    const { data } = await httpGet("/" + id);
-    book = data;
+    if (book === defaultBook) {
+      const { data } = await httpGet("/" + id);
+      book = data;
+    }
   });
 
   async function handleFavoriteClick() {
