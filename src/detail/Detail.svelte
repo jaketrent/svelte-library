@@ -8,8 +8,9 @@
   import Header from "../common/Header.svelte";
   import { httpGet, httpPut } from "../common/api.js";
 
-  export let book = {};
   export let id;
+
+  let book = {};
 
   onMount(async _ => {
     const foundBook = books.find(id);
