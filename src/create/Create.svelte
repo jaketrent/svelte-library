@@ -1,10 +1,9 @@
 <script>
   import { navigate } from "svelte-routing";
 
-  import { books } from "../common/store.js";
   import BackButtonRow from "../common/BackButtonRow.svelte";
-  import { bookApiUrl } from "../common/config.js";
   import BookCover from "../common/BookCover.svelte";
+  import { books } from "../common/store.js";
   import Button from "../common/Button.svelte";
   import Header from "../common/Header.svelte";
   import { httpPost } from "../common/api.js";
@@ -73,7 +72,6 @@
     <div>
       <Button>Save</Button>
     </div>
-
   </div>
 
   <div>
