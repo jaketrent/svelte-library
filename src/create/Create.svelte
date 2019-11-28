@@ -22,6 +22,15 @@
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+    function isValid() {
+      const required = ["title", "author", "about"];
+      return required.reduce(
+        (valid, field) => valid && book[field] && book[field].length > 0,
+        true
+      );
+    }
+    if (!isValid()) return;
+
     const newBook = {
       ...book,
       variation: getRandomInt(0, 2),
@@ -29,7 +38,7 @@
     };
     const { ok, data } = await httpPost("/", newBook);
     if (ok) {
-      books.add(data);
+      if (books.exist()) books.add(data);
       navigate("/");
     }
   }
