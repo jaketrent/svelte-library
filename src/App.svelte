@@ -1,6 +1,5 @@
 <script>
   import { Link, Route, Router } from "svelte-routing";
-  import { onMount } from "svelte";
 
   import { bookApiUrl } from "./common/config.js";
   import Create from "./create/Create.svelte";
@@ -10,21 +9,26 @@
 
   export let url = "";
 
+  // TODO: attempt store refactor, compare
   let books = [];
-
-  onMount(async function fetchBooks() {
-    const { data } = await httpGet("?_sort=id&_order=desc");
-    books = data;
-  });
 
   async function handleBookCreate(evt) {
     books = [evt.detail.book, ...books];
   }
 
-  function handleBookUpdate(evt) {
-    const { book } = evt.detail;
-    const i = books.findIndex(b => b.id === book.id);
-    books = [...books.slice(0, i), book, ...books.slice(i + 1)];
+  async function handleBookUpdate(evt) {
+    if (books.length === 0) {
+      const { data } = await httpGet("/?_sort=id&_order=desc");
+      books = data;
+    } else {
+      const { book } = evt.detail;
+      const i = books.findIndex(b => b.id === book.id);
+      books = [...books.slice(0, i), book, ...books.slice(i + 1)];
+    }
+  }
+
+  function handleBooksFetch(evt) {
+    books = evt.detail.books;
   }
 
   function findBook(id) {
@@ -50,7 +54,7 @@
       <Create on:create={handleBookCreate} />
     </Route>
     <Route path="/">
-      <Library {books} />
+      <Library {books} on:books-fetch={handleBooksFetch} />
     </Route>
   </main>
 </Router>

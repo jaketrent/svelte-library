@@ -1,9 +1,22 @@
 <script>
+  import { createEventDispatcher, onMount } from "svelte";
+
   import Button from "../common/Button.svelte";
   import BookGrid from "./BookGrid.svelte";
+  import { httpGet } from "../common/api.js";
   import Title from "./Title.svelte";
 
-  export let books;
+  export let books = [];
+
+  const dispatch = createEventDispatcher();
+
+  onMount(async function fetchBooks() {
+    if (books.length === 0) {
+      const { data } = await httpGet("/?_sort=id&_order=desc");
+      books = data;
+      dispatch("books-fetch", { books });
+    }
+  });
 </script>
 
 <style>
