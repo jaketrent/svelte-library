@@ -9,27 +9,6 @@
 
   export let url = "";
 
-  async function handleBookCreate(evt) {
-    const variationsCount = 3;
-    const book = {
-      ...evt.detail.book,
-      id: books.length + 1,
-      variation: books.length % variationsCount,
-      favorite: false
-    };
-
-    const res = await fetch(bookApiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(book)
-    });
-    if (res.ok) {
-      books = [book, ...books];
-    }
-  }
-
   let books = [];
 
   onMount(async function fetchBooks() {
@@ -37,6 +16,10 @@
     const json = await res.json();
     books = json;
   });
+
+  async function handleBookCreate(evt) {
+    books = [evt.detail.book, ...books];
+  }
 
   function handleBookUpdate(evt) {
     const { book } = evt.detail;

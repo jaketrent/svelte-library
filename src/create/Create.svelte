@@ -3,6 +3,7 @@
   import { navigate } from "svelte-routing";
 
   import BackButtonRow from "../common/BackButtonRow.svelte";
+  import { bookApiUrl } from "../common/config.js";
   import BookCover from "../common/BookCover.svelte";
   import Button from "../common/Button.svelte";
   import Header from "../common/Header.svelte";
@@ -17,6 +18,32 @@
   let about;
 
   $: book = { title, author, cover, about };
+
+  async function handleSubmit(evt) {
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    const newBook = {
+      ...book,
+      variation: getRandomInt(0, 2),
+      favorite: false
+    };
+
+    const res = await fetch(bookApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newBook)
+    });
+    if (res.ok) {
+      const json = await res.json();
+      dispatch("create", { book: json });
+      navigate("/");
+    }
+  }
 </script>
 
 <style>
@@ -47,11 +74,7 @@
 
 <Header element="h1" size="large">Create</Header>
 
-<form
-  on:submit|preventDefault={_ => {
-    dispatch('create', { book });
-    navigate('/');
-  }}>
+<form on:submit|preventDefault={handleSubmit}>
 
   <div class="fields">
     <TextInput label="Title" bind:value={title} />
