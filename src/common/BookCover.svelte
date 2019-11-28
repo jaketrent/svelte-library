@@ -15,6 +15,8 @@
     --bgDark: #f3b131;
     --bgLight: #ffde77;
 
+    background: #fff;
+    border-radius: 4px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     position: relative;
     transition: all 550ms;
@@ -39,6 +41,7 @@
   .book--interactive:hover,
   .book--interactive:focus {
     filter: brightness(90%);
+    outline: none;
   }
 
   .cover,
@@ -105,7 +108,6 @@
       <span class="title">{book.title || ''}</span>
       <span class="author">{book.author || ''}</span>
     </span>
-    <span class="page" />
   </a>
 {:else}
   <article

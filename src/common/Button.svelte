@@ -26,8 +26,9 @@
   }
   .button:hover,
   .button:focus {
-    text-decoration: none;
     filter: brightness(115%);
+    outline: none;
+    text-decoration: none;
   }
 </style>
 
