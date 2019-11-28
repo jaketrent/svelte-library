@@ -1,18 +1,16 @@
 <script>
   import { onMount } from "svelte";
 
-  import { allBooks, hasBooks, setBooks } from "../common/store.js";
+  import { books } from "../common/store.js";
   import Button from "../common/Button.svelte";
   import BookGrid from "./BookGrid.svelte";
   import { httpGet } from "../common/api.js";
   import Title from "./Title.svelte";
 
-  export let books = allBooks();
-
   onMount(async function fetchBooks() {
-    if (!hasBooks()) {
+    if (!books.exist()) {
       const { data } = await httpGet("/?_sort=id&_order=desc");
-      books = setBooks(data);
+      books.set(data);
     }
   });
 </script>
@@ -32,4 +30,4 @@
 
 <Button to="/create">+ Add Book</Button>
 
-<BookGrid {books} />
+<BookGrid books={$books} />

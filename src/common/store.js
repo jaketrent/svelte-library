@@ -1,29 +1,33 @@
-let cache = []
+import { writable } from 'svelte/store'
 
-export function addBook(book) {
-  cache = [book, ...cache]
-  return [...cache]
+function createBooks() {
+  const { subscribe, set, update: up } = writable([])
+
+  let books = []
+  subscribe(val => (books = val))
+
+  return {
+    subscribe,
+    add(book) {
+      up(books => {
+        return [book, ...books]
+      })
+    },
+    set,
+    find(id) {
+      return books.find(book => book.id === parseInt(id, 10))
+    },
+    update(book) {
+      up(cache => {
+        const i = cache.findIndex(b => b.id === book.id)
+        cache = [...cache.slice(0, i), book, ...cache.slice(i + 1)]
+        return [...cache]
+      })
+    },
+    exist() {
+      return books.length > 0
+    }
+  }
 }
 
-export function setBooks(books) {
-  cache = books
-  return [...cache]
-}
-
-export function allBooks() {
-  return [...cache]
-}
-
-export function findBook(id) {
-  return cache.find(book => book.id === parseInt(id, 10))
-}
-
-export function updateBook(book) {
-  const i = cache.findIndex(b => b.id === book.id)
-  cache = [...cache.slice(0, i), book, ...cache.slice(i + 1)]
-  return [...cache]
-}
-
-export function hasBooks() {
-  return cache.length > 0
-}
+export const books = createBooks()

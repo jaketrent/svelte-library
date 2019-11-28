@@ -1,7 +1,7 @@
 <script>
   import { navigate } from "svelte-routing";
 
-  import { addBook } from "../common/store.js";
+  import { books } from "../common/store.js";
   import BackButtonRow from "../common/BackButtonRow.svelte";
   import { bookApiUrl } from "../common/config.js";
   import BookCover from "../common/BookCover.svelte";
@@ -30,7 +30,7 @@
     };
     const { ok, data } = await httpPost("/", newBook);
     if (ok) {
-      addBook(data);
+      books.add(data);
       navigate("/");
     }
   }

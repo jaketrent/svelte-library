@@ -3,8 +3,8 @@
 
   import BackButtonRow from "../common/BackButtonRow.svelte";
   import BookCover from "../common/BookCover.svelte";
+  import { books } from "../common/store.js";
   import Button from "../common/Button.svelte";
-  import { findBook, hasBooks, setBooks, updateBook } from "../common/store.js";
   import Header from "../common/Header.svelte";
   import { httpGet, httpPut } from "../common/api.js";
 
@@ -12,7 +12,7 @@
   export let id;
 
   onMount(async _ => {
-    const foundBook = findBook(id);
+    const foundBook = books.find(id);
     if (foundBook) {
       book = foundBook;
     } else {
@@ -29,7 +29,7 @@
     const { ok } = await httpPut("/" + book.id, toggledBook);
     if (ok) {
       book = toggledBook;
-      if (hasBooks()) updateBook(book);
+      if (books.exist()) books.update(book);
     }
   }
 </script>
