@@ -55,7 +55,7 @@
   }
 </style>
 
-<BackButtonRow on:page-change />
+<BackButtonRow />
 
 <Header element="h1" size="large">Discover</Header>
 
