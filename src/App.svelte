@@ -5,6 +5,7 @@
   import { bookApiUrl } from "./common/config.js";
   import Create from "./create/Create.svelte";
   import Detail from "./detail/Detail.svelte";
+  import { httpGet } from "./common/api.js";
   import Library from "./library/Library.svelte";
 
   export let url = "";
@@ -12,9 +13,8 @@
   let books = [];
 
   onMount(async function fetchBooks() {
-    const res = await fetch(bookApiUrl + "?_sort=id&_order=desc");
-    const json = await res.json();
-    books = json;
+    const { data } = await httpGet("?_sort=id&_order=desc");
+    books = data;
   });
 
   async function handleBookCreate(evt) {

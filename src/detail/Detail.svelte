@@ -2,10 +2,10 @@
   import { createEventDispatcher, onMount } from "svelte";
 
   import BackButtonRow from "../common/BackButtonRow.svelte";
-  import { bookApiUrl } from "../common/config.js";
   import BookCover from "../common/BookCover.svelte";
   import Button from "../common/Button.svelte";
   import Header from "../common/Header.svelte";
+  import { httpGet, httpPut } from "../common/api.js";
 
   export let book = {};
   export let id;
@@ -13,9 +13,9 @@
   const dispatch = createEventDispatcher();
 
   onMount(async _ => {
-    const res = await fetch(bookApiUrl + "/" + id);
-    const json = await res.json();
-    book = json;
+    // TODO: get only if needed
+    const { data } = await httpGet("/" + id);
+    book = data;
   });
 
   async function handleFavoriteClick() {
@@ -23,14 +23,8 @@
       ...book,
       favorite: !book.favorite
     };
-    const res = await fetch(bookApiUrl + "/" + book.id, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(toggledBook)
-    });
-    if (res.ok) {
+    const { ok } = await httpPut("/" + book.id, toggledBook);
+    if (ok) {
       book = toggledBook;
       dispatch("book-update", { book: toggledBook });
     }

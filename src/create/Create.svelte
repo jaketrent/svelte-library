@@ -7,11 +7,11 @@
   import BookCover from "../common/BookCover.svelte";
   import Button from "../common/Button.svelte";
   import Header from "../common/Header.svelte";
+  import { httpPost } from "../common/api.js";
   import TextInput from "./TextInput.svelte";
 
   const dispatch = createEventDispatcher();
 
-  // TODO: handle edit
   let title;
   let author;
   let cover;
@@ -30,17 +30,9 @@
       variation: getRandomInt(0, 2),
       favorite: false
     };
-
-    const res = await fetch(bookApiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newBook)
-    });
-    if (res.ok) {
-      const json = await res.json();
-      dispatch("create", { book: json });
+    const { ok, data } = await httpPost("/", newBook);
+    if (ok) {
+      dispatch("create", { book: data });
       navigate("/");
     }
   }
@@ -75,7 +67,6 @@
 <Header element="h1" size="large">Create</Header>
 
 <form on:submit|preventDefault={handleSubmit}>
-
   <div class="fields">
     <TextInput label="Title" bind:value={title} />
     <TextInput label="Author" bind:value={author} />
@@ -93,5 +84,4 @@
       <BookCover {book} />
     </div>
   </div>
-
 </form>
