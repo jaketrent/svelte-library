@@ -1,11 +1,17 @@
 <script>
+  import ApolloClient from "apollo-boost";
   import { Route, Router } from "svelte-routing";
+  import { setClient } from "svelte-apollo";
 
   import Create from "./create/Create.svelte";
   import Detail from "./detail/Detail.svelte";
+  import { graphqlUrl } from "./common/config.js";
   import Library from "./library/Library.svelte";
 
   export let url = "";
+
+  const client = new ApolloClient({ uri: graphqlUrl });
+  setClient(client);
 </script>
 
 <style>

@@ -1,17 +1,26 @@
 <script>
-  import { onMount } from "svelte";
+  import { getClient, query } from "svelte-apollo";
+  import { gql } from "apollo-boost";
 
-  import { books } from "../common/store.js";
   import Button from "../common/Button.svelte";
   import BookGrid from "./BookGrid.svelte";
-  import { httpGet } from "../common/api.js";
   import Title from "./Title.svelte";
 
-  onMount(async function fetchBooks() {
-    if (!books.exist()) {
-      const { data } = await httpGet("/?_sort=id&_order=desc");
-      books.set(data);
-    }
+  const client = getClient();
+  const books = query(client, {
+    query: gql`
+      {
+        allBooks(sortField: "id", sortOrder: "desc") {
+          id
+          title
+          author
+          cover
+          about
+          variation
+          favorite
+        }
+      }
+    `
   });
 </script>
 
@@ -30,4 +39,10 @@
 
 <Button to="/create">+ Add Book</Button>
 
-<BookGrid books={$books} />
+{#await $books}
+  Loading...
+{:then result}
+  <BookGrid books={result.data.allBooks} />
+{:catch error}
+  Error: {error}
+{/await}
