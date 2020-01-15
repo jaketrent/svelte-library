@@ -1,4 +1,4 @@
-import { bookApiUrl } from './config.js'
+export const bookApiUrl = 'http://localhost:3000/books'
 
 export function httpGet(url) {
   return req(url)
