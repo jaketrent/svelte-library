@@ -22,7 +22,8 @@
       "author": "John Steinbeck",
       "cover": "",
       "about": "Thousands set out from the dust bowl to California in search of better fortunes",
-      "variation": 2
+      "variation": 2,
+      "favorite": true
     },
     {
       "id": 4,
