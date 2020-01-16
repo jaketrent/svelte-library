@@ -1,19 +1,19 @@
 export const bookApiUrl = 'http://localhost:3000/books'
 
-export function httpGet(url) {
-  return req(url)
+export function httpGet(path) {
+  return req(path)
 }
 
-export function httpPost(url, data) {
-  return req(url, 'POST', data)
+export function httpPost(path, data) {
+  return req(path, 'POST', data)
 }
 
-export function httpPut(url, data) {
-  return req(url, 'PUT', data)
+export function httpPut(path, data) {
+  return req(path, 'PUT', data)
 }
 
-async function req(url, method = 'GET', data) {
-  const res = await fetch(bookApiUrl + url, {
+async function req(path, method = 'GET', data) {
+  const res = await fetch(bookApiUrl + path, {
     method,
     headers: {
       'Content-Type': 'application/json'
