@@ -110,7 +110,7 @@
     </span>
   </a>
 {:else}
-  <article
+  <div
     class="book book--variation-{book.variation}
     {isValidUrl(book.cover) ? 'book--cover' : 'book--no-cover'}">
     <div
@@ -121,5 +121,5 @@
       </header>
       <div class="author">{book.author || ''}</div>
     </div>
-  </article>
+  </div>
 {/if}
